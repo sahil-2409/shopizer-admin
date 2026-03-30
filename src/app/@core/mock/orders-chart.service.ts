@@ -4,7 +4,7 @@ import { OrdersChart, OrdersChartData } from '../data/orders-chart';
 
 /**
  * This is simulation of orders data
- * 
+ *
  * Orders vs shopping carts
  */
 @Injectable()
@@ -32,15 +32,28 @@ export class OrdersChartService extends OrdersChartData {
     };
   }
 
+  getDataLabels(nPoints: number, labelsArray: string[]): string[] {
+    const labelsArrayLength = labelsArray.length;
+    const step = Math.round(nPoints / labelsArrayLength);
+
+    return Array.from(Array(nPoints)).map((_item, index) => {
+      const dataIndex = Math.round(index / step);
+
+      return index % step === 0 ? labelsArray[dataIndex] : '';
+    });
+  }
+
+  getOrdersChartData(period: string): OrdersChart {
+    return this.data[period];
+  }
 
   private getDataForWeekPeriod(): OrdersChart {
     return {
-      //current week
       /**
-       * 
+       *
        * Get points
        * 7 days * (6 captures / day = every 4 hours)
-       * 
+       *
        */
       chartLabel: this.getDataLabels(42, this.period.getWeeks()),
       linesData: [
@@ -75,7 +88,6 @@ export class OrdersChartService extends OrdersChartData {
     };
   }
 
-  //current year
   private getDataForMonthPeriod(): OrdersChart {
     return {
       chartLabel: this.getDataLabels(47, this.period.getMonths()),
@@ -151,20 +163,5 @@ export class OrdersChartService extends OrdersChartData {
         ],
       ],
     };
-  }
-
-  getDataLabels(nPoints: number, labelsArray: string[]): string[] {
-    const labelsArrayLength = labelsArray.length;
-    const step = Math.round(nPoints / labelsArrayLength);
-
-    return Array.from(Array(nPoints)).map((item, index) => {
-      const dataIndex = Math.round(index / step);
-
-      return index % step === 0 ? labelsArray[dataIndex] : '';
-    });
-  }
-
-  getOrdersChartData(period: string): OrdersChart {
-    return this.data[period];
   }
 }

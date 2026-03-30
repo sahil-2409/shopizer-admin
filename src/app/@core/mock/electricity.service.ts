@@ -5,6 +5,8 @@ import { Electricity, ElectricityChart, ElectricityData } from '../data/electric
 @Injectable()
 export class ElectricityService extends ElectricityData {
 
+  chartData: ElectricityChart[];
+
   private listData: Electricity[] = [
     {
       title: '2015',
@@ -74,8 +76,6 @@ export class ElectricityService extends ElectricityData {
     340, 340, 340, 340,
     340, 340, 340,
   ];
-
-  chartData: ElectricityChart[];
 
   constructor() {
     super();

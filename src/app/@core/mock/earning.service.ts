@@ -7,7 +7,7 @@ export class EarningService extends EarningData {
 
   private currentDate: Date = new Date();
   private currentValue = Math.random() * 1000;
-  private ONE_DAY = 24 * 3600 * 1000;
+  private oneDay = 24 * 3600 * 1000;
 
   private pieChartData = [
     {
@@ -56,11 +56,11 @@ export class EarningService extends EarningData {
     this.currentValue = Math.random() * 1000;
 
     return Array.from(Array(elementsNumber))
-      .map(item => this.generateRandomLiveChartData());
+      .map(_item => this.generateRandomLiveChartData());
   }
 
   generateRandomLiveChartData() {
-    this.currentDate = new Date(+this.currentDate + this.ONE_DAY);
+    this.currentDate = new Date(+this.currentDate + this.oneDay);
     this.currentValue = this.currentValue + Math.random() * 20 - 11;
 
     if (this.currentValue < 0) {
