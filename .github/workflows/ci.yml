@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main, kiro-develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 12
+          cache: npm
+
+      - run: npm install --legacy-peer-deps
+
+      - run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shopizer-admin-build
+          path: dist/
