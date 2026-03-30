@@ -22,3 +22,8 @@ jobs:
       - run: npm run lint:ci
 
       - run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shopizer-admin-build
+          path: dist/
